@@ -1,4 +1,9 @@
 # zsh-execution-time
+Adds executiom time and date to the RPROMPT
+
+`2s < Sat Oct 28 22:57:18 2017`
+
+
 needs coreutils to be installed to get ms from gdate
 
 ```sh
