@@ -2,7 +2,7 @@ function preexec() {
   timer=$(gdate +%s%3N)
 }
 function precmd() {
-  dateString=$(gdate +%c)
+  dateString=$(gdate +"%a %b %d %T %Y")
   if [ $timer ]; then
     now=$(gdate +%s%3N)
     elapsed=$(($now-$timer))
