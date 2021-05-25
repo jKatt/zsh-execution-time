@@ -10,15 +10,15 @@ function precmd() {
     unit="ms"
     color=240
     if [[ $elapsed -ge 3600000 ]]; then
-      hours=$(($elapsed/3600000))
+      hours=$(($elapsed / 3600000))
       elapsedHours="${hours}h "
     fi
     if [[ $elapsed -ge 60000 ]]; then
-      elapsed=$(($elapsed/60000))
+      elapsed=$((($elapsed / 60000) % 60))
       unit="m"
       color="red"
     elif [[ $elapsed -ge 3000 ]]; then
-      elapsed=$(($elapsed/1000))
+      elapsed=$(($elapsed / 1000))
       unit="s"
     fi
     export RPROMPT="%F{${color}}${elapsedHours}${elapsed}${unit}%F{240} < ${dateString}%f"
