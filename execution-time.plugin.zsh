@@ -1,14 +1,22 @@
-function preexec() {
-  timer=$(gdate +%s%3N)
+zmodload zsh/datetime
+
+function sliced_epoch_nanoseconds {
+  local now=$(strftime "%s%N")
+  echo ${now:0:-6}
 }
+
+function preexec() {
+  execution_start_time=$(sliced_epoch_nanoseconds)
+}
+
 function precmd() {
-  dateString=$(gdate +"%a %b %d %T %Y")
-  if [[ $timer ]]; then
-    now=$(gdate +%s%3N)
-    elapsed=$(($now-$timer))
-    elapsedHours=""
-    unit="ms"
-    color=240
+  local dateString=$(strftime "%Y-%m-%d %T")
+  if [[ $execution_start_time ]]; then
+    local now=$(sliced_epoch_nanoseconds)
+    local elapsed=$(($now-$execution_start_time))
+    local elapsedHours=""
+    local unit="ms"
+    local color=240
     if [[ $elapsed -ge 3600000 ]]; then
       hours=$(($elapsed / 3600000))
       elapsedHours="${hours}h "
@@ -22,7 +30,7 @@ function precmd() {
       unit="s"
     fi
     export RPROMPT="%F{${color}}${elapsedHours}${elapsed}${unit}%F{240} < ${dateString}%f"
-    unset timer
+    unset execution_start_time
   else
     export RPROMPT="%F{240}${dateString}%f"
   fi
