@@ -1,6 +1,6 @@
 # zsh-execution-time
 
-Adds executiom time and date to the RPROMPT
+Adds execution time and date of the last command to the RPROMPT
 
 `23ms < 2021-10-21 20:02:54`
 
